@@ -38,7 +38,7 @@ class Movie {
     posterPath = json['poster_path'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
-    genreIds = json['genere_ids'].cast<int>();
+    genreIds = json['genere_ids'] != null ? json['genere_ids'].cast<int>() : [];
     backdropPath = json['backdrop_path'];
     adult = json['adult'];
     overview = json['overview'];
@@ -61,4 +61,9 @@ class Movie {
     this.overview,
     this.releaseDate,
   });
+
+  getPosterImg() {
+    if(posterPath == null) return 'https://www.erasmusbilbao.com/template/default/image/layout/nopic_homebox.png';
+    return 'https://image.tmdb.org/t/p/w500/$posterPath';
+  }
 }
