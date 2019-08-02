@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_catalog_flutter/src/model/pelicula_model.dart';
 import 'package:movie_catalog_flutter/src/providers/movies.provider.dart';
+import 'package:movie_catalog_flutter/src/widgets/card_horizontal_widget.dart';
 import 'package:movie_catalog_flutter/src/widgets/card_swiper_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -21,8 +23,10 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            _swiperCards()
+            _swiperCards(),
+            _foter(context)
           ],
         ),
       ),
@@ -36,11 +40,35 @@ class HomePage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
         if(snapshot.hasData) return CardSwiper( elements: snapshot.data, );
         return Container(
-          height: 400.0,
           child: CircularProgressIndicator()
         );
       },
     );
     
+  }
+
+  Widget _foter(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text('Populares', style: Theme.of(context).textTheme.subhead,),
+          ),
+          FutureBuilder(
+            future: _moviesProvider.getPopulares(),
+            // initialData: InitialData,
+            builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
+              if(snapshot.hasData) return CardHorizontal(movies: snapshot.data);
+              return Container(
+                child: Center(child: CircularProgressIndicator())
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
