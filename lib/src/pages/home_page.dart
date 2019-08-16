@@ -9,6 +9,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    _moviesProvider.getPopulares();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -57,11 +60,11 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Text('Populares', style: Theme.of(context).textTheme.subhead,),
           ),
-          FutureBuilder(
-            future: _moviesProvider.getPopulares(),
+          StreamBuilder(
+            stream: _moviesProvider.popularesStream,
             // initialData: InitialData,
             builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-              if(snapshot.hasData) return CardHorizontal(movies: snapshot.data);
+              if(snapshot.hasData) return CardHorizontal(movies: snapshot.data, nextPage: _moviesProvider.getPopulares);
               return Container(
                 child: Center(child: CircularProgressIndicator())
               );
