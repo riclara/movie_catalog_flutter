@@ -66,4 +66,9 @@ class Movie {
     if(posterPath == null) return 'https://www.erasmusbilbao.com/template/default/image/layout/nopic_homebox.png';
     return 'https://image.tmdb.org/t/p/w500/$posterPath';
   }
+  
+  geBackgroundImg() {
+    if(posterPath == null) return 'https://www.erasmusbilbao.com/template/default/image/layout/nopic_homebox.png';
+    return 'https://image.tmdb.org/t/p/w500/$backdropPath';
+  }
 }
