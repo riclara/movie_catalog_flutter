@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:movie_catalog_flutter/src/model/actor.model.dart';
 import 'package:movie_catalog_flutter/src/model/pelicula_model.dart';
 
 class MoviesProvider {
@@ -30,7 +31,7 @@ class MoviesProvider {
     return movies.items;
   }
 
-  Future<List<Movie>> nowPlaying() async {
+  Future<List<Movie>> nowPlaying () async {
     final url = Uri.https(_url, '3/movie/now_playing', {
       'api_key': _apiKey,
       'language': _language
@@ -38,7 +39,7 @@ class MoviesProvider {
     return await _request(url);
   }
 
-  Future<List<Movie>> getPopulares() async {
+  Future<List<Movie>> getPopulares () async {
     if (_loading) return [];
     _loading = true;
 
@@ -54,5 +55,19 @@ class MoviesProvider {
 
     _loading = false;
     return resp;
+  }
+
+  Future<List<Actor>> getCast (int movieId) async {
+    final url = Uri.https(_url, '3/movie/$movieId/credits', {
+      'api_key': _apiKey,
+      'language': _language,
+    });
+
+    final resp = await http.get(url);
+    final decodedData = json.decode(resp.body);
+    final cast = Cast.fromJsonList(decodedData['cast']);
+
+    return cast.actors;
+
   }
 }
