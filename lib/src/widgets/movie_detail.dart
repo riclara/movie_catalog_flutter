@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie_catalog_flutter/src/model/actor.model.dart';
-import 'package:movie_catalog_flutter/src/model/pelicula_model.dart';
+import 'package:movie_catalog_flutter/src/model/movie_model.dart';
 import 'package:movie_catalog_flutter/src/providers/movies.provider.dart';
-import 'package:movie_catalog_flutter/src/providers/movies.provider.dart' as prefix0;
 
 class MovieDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Movie movie = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -56,11 +54,14 @@ class MovieDetail extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image(
-              image: NetworkImage(movie.getPosterImg()),
-              height: 150.0,
+          Hero(
+            tag: movie.id,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image(
+                image: NetworkImage(movie.getPosterImg()),
+                height: 150.0,
+              ),
             ),
           ),
           SizedBox(width: 20.0,),
@@ -133,16 +134,13 @@ class MovieDetail extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 5.0),
       child: Column(
         children: <Widget>[
-          Hero(
-            tag: actor.id,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(actor.getFoto()),
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit: BoxFit.cover,
-                height: 145.0,
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: FadeInImage(
+              image: NetworkImage(actor.getFoto()),
+              placeholder: AssetImage('assets/img/no-image.jpg'),
+              fit: BoxFit.cover,
+              height: 145.0,
             ),
           ),
           Text(

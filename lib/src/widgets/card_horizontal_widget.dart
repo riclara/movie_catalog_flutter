@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_catalog_flutter/src/model/pelicula_model.dart';
+import 'package:movie_catalog_flutter/src/model/movie_model.dart';
 
 class CardHorizontal extends StatelessWidget {
   final List<Movie> movies;

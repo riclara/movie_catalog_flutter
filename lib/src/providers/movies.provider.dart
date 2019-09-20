@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:movie_catalog_flutter/src/model/actor.model.dart';
-import 'package:movie_catalog_flutter/src/model/pelicula_model.dart';
+import 'package:movie_catalog_flutter/src/model/movie_model.dart';
 
 class MoviesProvider {
   String _apiKey = '94b5e770a1ae509e295751de75292e39';
